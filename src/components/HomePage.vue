@@ -15,6 +15,9 @@
           Search <i class="fas fa-search"></i>
         </button>
       </div>
+      <button @click="handleSignOut" class="btn btn-danger mt-3">
+        Sign Out
+      </button>
     </div>
     <br />
     <Weather :city="city" v-if="showWeather"></Weather>
@@ -23,6 +26,8 @@
 
 <script>
 import Weather from "./Weather.vue";
+import { getAuth, signOut } from "firebase/auth";
+
 export default {
   name: "HomePage",
   components: { Weather },
@@ -38,11 +43,24 @@ export default {
       await this.$nextTick();
       this.showWeather = true;
     },
+    handleSignOut() {
+      const auth = getAuth();
+
+      console.log("Before Sign Out - Auth:", auth);
+
+      signOut(auth)
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          throw Error("Something went wrong", error);
+        });
+    },
   },
 };
 </script>
 
-<style scoped>
+<style>
 body {
   background-color: #121212 !important;
 }

@@ -1,18 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+import { getAuth } from "firebase/auth";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+const $toast = useToast();
 const routes = [
   {
-    path: "/",
+    path: "/home",
     component: () => import("../components/HomePage.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
+  {
+    path: "/",
+    component: () => import("../components/Register.vue"),
+  },
   {
     path: "/:catchAll(.*)",
     component: () => import("../components/NotFound.vue"),
@@ -24,4 +26,37 @@ const router = createRouter({
   routes,
 });
 
+// const getCurrentUser = () => {
+//   return new Promise((resolve, reject) => {
+//     const removeListener = onAuthStateChanged(
+//       getAuth(),
+//       (user) => {
+//         removeListener();
+//         resolve(user);
+//       },
+//       reject
+//     );
+//   });
+// };
+
+router.beforeEach(async (to, from, next) => {
+  const auth = getAuth();
+  await new Promise((resolve) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      resolve(user);
+      unsubscribe();
+    });
+  });
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (auth.currentUser) {
+      next();
+    } else {
+      $toast.error("You don't have access !!!");
+      next("/");
+    }
+  } else {
+    next();
+  }
+});
 export default router;

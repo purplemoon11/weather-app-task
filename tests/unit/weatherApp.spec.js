@@ -1,11 +1,16 @@
 import { shallowMount } from "@vue/test-utils";
-import App from "@/App.vue";
+import HomePage from "../../src/components/HomePage.vue";
 import WeatherData from "../../src/components/Weather.vue";
 import DaysWeather from "../../src/components/DaysWeather.vue";
 
-describe("App.vue", () => {
+jest.mock("firebase/auth", () => ({
+  getAuth: jest.fn(),
+  signOut: jest.fn(),
+}));
+
+describe("HomePage.vue", () => {
   it("renders correctly", async () => {
-    const wrapper = shallowMount(App);
+    const wrapper = shallowMount(HomePage);
 
     expect(wrapper.vm.city).toBe("");
     expect(wrapper.vm.showWeather).toBe(false);
@@ -66,21 +71,8 @@ describe("WeatherData", () => {
 describe("DaysWeather", () => {
   it("renders properly with mock data", async () => {
     jest.mock("axios", () => ({
-      get: jest.fn(() => Promise.resolve({ data: mockForecastData })),
+      get: jest.fn(() => Promise.resolve()),
     }));
-
-    const mockForecastData = [
-      {
-        date: "2022-12-01",
-        temperature: 20,
-        iconUrl: "mock-icon-url",
-      },
-      {
-        date: "2022-12-02",
-        temperature: 22,
-        iconUrl: "mock-icon-url",
-      },
-    ];
 
     const wrapper = shallowMount(DaysWeather, {
       props: {
@@ -91,7 +83,6 @@ describe("DaysWeather", () => {
     await wrapper.vm.$nextTick();
 
     expect(wrapper.exists()).toBe(true);
-
     expect(wrapper.find(".no-data").exists()).toBe(false);
   });
 });

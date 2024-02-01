@@ -143,11 +143,7 @@ export default {
 };
 </script>
 
-<style>
-body {
-  background-color: #343d4b;
-}
-
+<style scoped>
 .weather-temp {
   margin: 0;
   font-weight: 3rem;
