@@ -55,13 +55,12 @@ export default {
               return acc;
             }, [])
             .slice(1, 5);
-          console.log(filteredData, "working");
           this.forecast = filteredData;
           this.loading = false;
         })
         .catch((error) => {
-          console.log("Error fetching data", error);
           this.loading = false;
+          throw Error("Error fetching data", error);
         });
     },
     getDayName(date) {

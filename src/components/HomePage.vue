@@ -46,8 +46,6 @@ export default {
     handleSignOut() {
       const auth = getAuth();
 
-      console.log("Before Sign Out - Auth:", auth);
-
       signOut(auth)
         .then(() => {
           this.$router.push("/");
@@ -72,8 +70,5 @@ body {
   text-align: center;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   margin-top: 5rem;
-}
-
-.btn-search {
 }
 </style>
