@@ -158,7 +158,7 @@ h2.mb-1.day {
 .main-div {
   border-radius: 20px;
   color: #fff;
-  background-image: url("https://pics.freeartbackgrounds.com/Sea_Water_Wave_and_Sand_Background-336.jpg");
+  background-image: url("/src/assets/Sea_Water_Wave_and_Sand_Background-336.jpeg");
   background-size: cover;
   background-position: center;
   background-blend-mode: overlay;

@@ -34,7 +34,6 @@ export default {
       const city = this.cityName;
       const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
 
-      // Corrected: Use 'then' instead of 'them'
       await axios
         .get(apiUrl)
         .then((res) => {
