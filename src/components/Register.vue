@@ -80,7 +80,7 @@ export default {
           this.$router.push("/");
         })
         .catch((error) => {
-          $toast.success(error.message);
+          $toast.error(error.message);
         });
     },
   },
