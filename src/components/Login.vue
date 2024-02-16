@@ -75,7 +75,7 @@ export default {
           this.$router.push("/home");
         })
         .catch((error) => {
-          $toast.success(error.message);
+          $toast.error(error.message);
         });
     },
   },
