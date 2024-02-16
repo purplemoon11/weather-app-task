@@ -4,4 +4,8 @@
 
 <script></script>
 
-<style></style>
+<style>
+body {
+  background-color: #121212 !important;
+}
+</style>

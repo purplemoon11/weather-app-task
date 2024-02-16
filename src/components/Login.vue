@@ -1,13 +1,14 @@
 <template>
   <div class="app">
     <div class="header container">
-      <div class="mb-5">Create Your Account</div>
+      <div class="mb-5">Sign In To Your Account</div>
       <div class="container">
-        <form @submit.prevent="register">
+        <form @submit.prevent="login">
           <div class="form-group">
             <input
               type="email"
               class="form-control"
+              id="email"
               placeholder="Enter email"
               v-model="email"
             />
@@ -17,17 +18,18 @@
             <input
               type="password"
               class="form-control"
+              id="password"
               placeholder="Password"
               v-model="password"
             />
           </div>
           <br />
-          <button class="btn btn-primary">Sign Up</button>
+          <button type="submit" class="btn btn-primary">Login</button>
         </form>
         <br />
         <p>
-          Already have account?
-          <router-link to="/">Login</router-link>
+          Don't have an account?
+          <router-link to="/register">Register</router-link>
           Or
         </p>
 
@@ -49,18 +51,11 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   getAuth,
-  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useToast } from "vue-toast-notification";
-
 export default {
-  name: "RegisterForm",
-  data() {
-    return {
-      email: "",
-      password: "",
-    };
-  },
+  name: "LoginForm",
   methods: {
     signInWithGoogle() {
       const provider = new GoogleAuthProvider();
@@ -72,12 +67,12 @@ export default {
           throw Error("Something went wrong", err);
         });
     },
-    register() {
+    login() {
       const $toast = useToast();
-      createUserWithEmailAndPassword(getAuth(), this.email, this.password)
+      signInWithEmailAndPassword(getAuth(), this.email, this.password)
         .then(() => {
-          $toast.success("User registered successfully !!!");
-          this.$router.push("/");
+          $toast.success("User loggedin successfully !!!");
+          this.$router.push("/home");
         })
         .catch((error) => {
           $toast.success(error.message);

@@ -58,11 +58,7 @@ export default {
 };
 </script>
 
-<style>
-body {
-  background-color: #121212 !important;
-}
-
+<style scoped>
 .header {
   background-color: #212730;
   border-radius: 20px;

@@ -69,7 +69,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .days-tab {
   width: 90%;
   border-radius: 20px;

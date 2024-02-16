@@ -5,6 +5,10 @@ import "vue-toast-notification/dist/theme-sugar.css";
 const $toast = useToast();
 const routes = [
   {
+    path: "/",
+    component: () => import("../components/Login.vue"),
+  },
+  {
     path: "/home",
     component: () => import("../components/HomePage.vue"),
     meta: {
@@ -12,7 +16,7 @@ const routes = [
     },
   },
   {
-    path: "/",
+    path: "/register",
     component: () => import("../components/Register.vue"),
   },
   {
